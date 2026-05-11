@@ -15,6 +15,57 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+  // Inicializar EmailJS
+  emailjs.init("TU_PUBLIC_KEY");
+
+  // Evento del botón
+  document.getElementById("sendBtn").addEventListener("click", function () {
+    
+    const email = document.getElementById("userEmail").value.trim();
+
+    // Validar que escribieron un correo
+    if (!email) {
+      alert("Por favor ingresa tu correo.");
+      return;
+    }
+
+    // Validar formato básico del correo
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!emailRegex.test(email)) {
+      alert("Por favor ingresa un correo válido.");
+      return;
+    }
+
+    // Datos que se enviarán a EmailJS
+    const templateParams = {
+      user_email: email
+    };
+
+    // Enviar correo automático
+    emailjs.send(
+      "service_r2871ek",
+      "template_ad77g3f",
+      templateParams
+    )
+    .then(function(response) {
+      console.log("Correo enviado:", response);
+
+      alert("¡Gracias! Ya haces parte del cambio con DevStream. Revisa tu correo.");
+
+      // Limpiar input
+      document.getElementById("userEmail").value = "";
+    })
+    .catch(function(error) {
+      console.error("Error:", error);
+      alert("Hubo un problema al enviar el correo. Intenta nuevamente.");
+    });
+
+  });
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -44,7 +95,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 Creamos software a medida con precisión absoluta. Desde arquitecturas en C++ hasta ecosistemas React.
             </p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
-                <input type="email" placeholder="Email corporativo" class="bg-white/5 border border-white/10 px-6 py-4 rounded-full w-full md:w-80 outline-none focus:border-[#D4AF37]">
+                <input type="email" placeholder="Email de contacto class="bg-white/5 border border-white/10 px-6 py-4 rounded-full w-full md:w-80 outline-none focus:border-[#D4AF37]">
                 <button class="btn-gold">SOLICITAR CONSULTA</button>
             </div>
         </div>
