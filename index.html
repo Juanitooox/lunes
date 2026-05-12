@@ -15,8 +15,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <script>
   // Inicializar EmailJS
   emailjs.init("a3rnofqgk2eCtW62H");
@@ -67,6 +65,57 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   });
 </script>
 </head>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    emailjs.init("a3rnofqgk2eCtW62H");
+
+    const sendBtn = document.getElementById("sendBtn");
+
+    sendBtn.addEventListener("click", function () {
+
+        const email = document
+            .getElementById("userEmail")
+            .value
+            .trim();
+
+        if (!email) {
+            alert("Por favor ingresa tu correo.");
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailRegex.test(email)) {
+            alert("Ingresa un correo válido.");
+            return;
+        }
+
+        const templateParams = {
+            user_email: email
+        };
+
+        emailjs.send(
+            "service_r2871ek",
+            "template_ad77g3f",
+            templateParams
+        )
+        .then(function () {
+            alert("¡Gracias! Ya haces parte del cambio con DevStream. Revisa tu correo.");
+            document.getElementById("userEmail").value = "";
+        })
+        .catch(function (error) {
+            console.error("EmailJS error:", error);
+            alert("Hubo un error al enviar el correo.");
+        });
+
+    });
+
+});
+</script>
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TMHTDTRR"
@@ -94,11 +143,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
                 Creamos software a medida con precisión absoluta. Desde arquitecturas en C++ hasta ecosistemas React.
             </p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <input type="email" placeholder="Email de contacto class="bg-white/5 border border-white/10 px-6 py-4 rounded-full w-full md:w-80 outline-none focus:border-[#D4AF37]">
-                <button class="btn-gold">SOLICITAR CONSULTA</button>
-            </div>
-        </div>
+<div class="flex flex-col md:flex-row justify-center gap-4">
+    <input
+        id="userEmail"
+        type="email"
+        placeholder="Email de contacto"
+        class="bg-white/5 border border-white/10 px-6 py-4 rounded-full w-full md:w-80 outline-none focus:border-[#D4AF37]"
+    >
+
+    <button id="sendBtn" class="btn-gold">
+        SOLICITAR CONSULTA
+    </button>
+</div>  </div>
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#D4AF37]/5 rounded-full blur-[120px]"></div>
     </section>
 
